@@ -1,0 +1,23 @@
+<ion-header>
+
+  	<ion-navbar>
+    	<ion-title>Recipes</ion-title>
+ 		<ion-buttons end icon-only>
+			<button ion-button (click)="addRecipe()"><ion-icon name="add"></ion-icon></button>
+		</ion-buttons>
+ 	</ion-navbar>
+	
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card *ngFor="let recipe of recipes; let i = index">
+		<ion-card-header>#{{i + 1 }} {{recipe.title}}</ion-card-header>
+		<ion-card-content>
+			<ion-row>
+				<ion-col>{{recipe.description}}</ion-col>
+				<ion-col text-right>{{recipe.difficulty}}</ion-col>
+			</ion-row>
+		</ion-card-content>
+	</ion-card>
+</ion-content>
