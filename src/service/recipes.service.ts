@@ -1,4 +1,5 @@
-import { Recipes } from '../models/Recipes';
+import { Recipes } from '../models/recipes';
+import { Ingredient } from '../models/ingredient';
 
 export class RecipesService{
 	private recipes: Recipes[] = [];
@@ -7,8 +8,18 @@ export class RecipesService{
 		return this.recipes.slice();
 	}
 
-	addRecipe(recipe: Recipes){
-		this.recipes.push(recipe);
+	addRecipe(title: string, description: string, difficulty: string, ingredients: Ingredient[]){
+		this.recipes.push(new Recipes(title, description, difficulty, ingredients));
 		console.log(this.recipes);
 	}
+
+	updateRecipe(index: number, title: string, description: string, difficulty: string, ingredients: Ingredient[]){
+		this.recipes[index] = new Recipes(title, description, difficulty, ingredients);
+		console.log(this.recipes);
+	}
+
+	removeRecipe(index: number){
+		this.recipes.splice(index, 1);
+	}
 }
+

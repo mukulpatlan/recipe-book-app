@@ -11,13 +11,10 @@
 
 
 <ion-content padding>
-	<ion-card *ngFor="let recipe of recipes; let i = index">
-		<ion-card-header>#{{i + 1 }} {{recipe.title}}</ion-card-header>
-		<ion-card-content>
-			<ion-row>
-				<ion-col>{{recipe.description}}</ion-col>
-				<ion-col text-right>{{recipe.difficulty}}</ion-col>
-			</ion-row>
-		</ion-card-content>
-	</ion-card>
+	<ion-list>
+		<button ion-item  *ngFor="let recipe of recipes; let i = index" (click)="onLoadRecipe(recipe, i)">
+			<h2>{{recipe.title}}</h2>
+			<ion-note>{{recipe.difficulty}}</ion-note>
+		</button>
+	</ion-list>
 </ion-content>

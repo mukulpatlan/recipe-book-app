@@ -9,6 +9,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
 import { RecipesPage } from '../pages/recipes/recipes';
 import { RecipePage } from '../pages/recipe/recipe';
+import { RecipeEdit } from '../pages/recipe-edit/recipe-edit';
 
 import { ShoppingListService } from '../service/shopping-list.service';
 import { RecipesService } from '../service/recipes.service';
@@ -19,7 +20,8 @@ import { RecipesService } from '../service/recipes.service';
     ShoppingListPage,
     RecipesPage,
     TabsPage,
-    RecipePage
+    RecipePage,
+    RecipeEdit
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { RecipesService } from '../service/recipes.service';
     ShoppingListPage,
     RecipesPage,
     TabsPage,
-    RecipePage
+    RecipePage,
+    RecipeEdit
   ],
   providers: [
     StatusBar,
