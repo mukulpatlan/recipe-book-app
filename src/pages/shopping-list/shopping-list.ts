@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, PopoverController, LoadingController, AlertController } from 'ionic-angular';
+
+import { SLOptionsPage } from './sl-options/sl-options';
 
 import { Ingredient } from '../../models/ingredient';
 
 import { ShoppingListService } from '../../service/shopping-list.service';
+import { AuthService } from '../../service/auth';
 
 @IonicPage()
 @Component({
@@ -17,7 +20,13 @@ export class ShoppingListPage {
 	name;
 	amount;
 
-	constructor(private shoppingListService: ShoppingListService, private toastCtrl:ToastController){}
+	constructor(private shoppingListService: ShoppingListService, 
+		private toastCtrl:ToastController, 
+		private popoverContrl: PopoverController,
+		private authService: AuthService,
+		private loadingCntrl: LoadingController,
+		private alertCntrl: AlertController
+		){}
 
 	ionViewWillEnter(){
 		this.loadItem();
@@ -37,6 +46,61 @@ export class ShoppingListPage {
 			form.reset();
 			this.loadItem();
 		}
+	}
+
+	presentPopover(event: MouseEvent) {
+		const loading = this.loadingCntrl.create({
+			content: "please wait.."
+		})
+	    let popover = this.popoverContrl.create(SLOptionsPage);
+	    popover.present({ev: event});
+	    popover.onDidDismiss(
+	    	data => {
+	    		if(data.action == 'load'){
+	    			loading.present();
+	    			this.authService.getActiveUser().getToken()
+	    				.then(
+	    					(token: string) => {
+	    						this.shoppingListService.fetchList(token)
+	    						.subscribe(
+	    							(list: Ingredient[]) => {
+	    								loading.dismiss();
+	    								if(list){
+	    									this.ingredients = list;
+	    								} else{
+	    									this.ingredients = [];
+	    								}
+	    							},
+	    							(error) => {
+	    								loading.dismiss();
+	    								this.handleError(error.json().error);
+	    								console.log(error)
+	    							}
+	    						);
+	    					}
+	    				);
+	    		} else if(data.action == 'store'){
+	    			loading.present();
+	    			this.authService.getActiveUser().getToken()
+	    				.then(
+	    					(token: string) => {
+	    						this.shoppingListService.storeList(token)
+	    						.subscribe(
+	    							() => {
+	    								loading.dismiss();
+	    								console.log('Success');
+	    							},
+	    							(error) => {
+	    								loading.dismiss();
+	    								this.handleError(error.json().error);
+	    								console.log(error);
+	    							}
+	    						);
+	    					}
+	    				);
+	    		}
+	    	}
+	    );
 	}
 
 	presentToast(msg: string) {
@@ -60,5 +124,14 @@ export class ShoppingListPage {
 
 	private loadItem(){
 		this.ingredients = this.shoppingListService.getShoppingList();
+	}
+
+	private handleError(errorMessage: string){
+		const alert = this.alertCntrl.create({
+			title: "An error occured",
+			message: errorMessage,
+			buttons: ['Ok']
+		});
+		alert.present();
 	}
 }
