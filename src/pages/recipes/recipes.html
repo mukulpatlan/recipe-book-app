@@ -9,6 +9,9 @@
 		</ion-buttons>
  		<ion-buttons end icon-only>
 			<button ion-button (click)="addRecipe()"><ion-icon name="add"></ion-icon></button>
+			<button ion-button (click)="presentPopover($event)">
+				<ion-icon name="more"></ion-icon>
+			</button>
 		</ion-buttons>
  	</ion-navbar>
 	

@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, ToastController, ViewController } from 'ionic-angular';
+import { IonicPage, 
+		NavController, 
+		NavParams, 
+		ActionSheetController, 
+		AlertController, 
+		ToastController
+	} from 'ionic-angular';
 
 import { RecipesService } from '../../service/recipes.service';
 import { Recipes } from '../../models/recipes';
+
 
 @IonicPage()
 @Component({
@@ -23,8 +30,8 @@ export class RecipePage implements OnInit {
   		public actionSheet: ActionSheetController, 
   		public alert: AlertController,
   		private recipesService: RecipesService,
-  		private toastCntrl: ToastController,
-  		private viewCntrl: ViewController) {}
+  		private toastCntrl: ToastController
+  		) {}
 
   	ngOnInit(){
   		this.mode = this.navParams.get('mode');

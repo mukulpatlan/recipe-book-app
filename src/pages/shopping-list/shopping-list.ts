@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController, PopoverController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, ToastController, PopoverController, LoadingController, AlertController } from 'ionic-angular';
 
-import { SLOptionsPage } from './sl-options/sl-options';
+import { DatabaseOptionsPage } from '../database-options/database-options';
 
 import { Ingredient } from '../../models/ingredient';
 
@@ -52,10 +52,13 @@ export class ShoppingListPage {
 		const loading = this.loadingCntrl.create({
 			content: "please wait.."
 		})
-	    let popover = this.popoverContrl.create(SLOptionsPage);
+	    let popover = this.popoverContrl.create(DatabaseOptionsPage);
 	    popover.present({ev: event});
 	    popover.onDidDismiss(
 	    	data => {
+	    		if(!data){
+	              	return;
+	            }
 	    		if(data.action == 'load'){
 	    			loading.present();
 	    			this.authService.getActiveUser().getToken()
@@ -117,7 +120,6 @@ export class ShoppingListPage {
 	}
 
 	removeIngredient(index: number){
-		const position = 
 		this.shoppingListService.removeFromShoppingList(index);
 		this.loadItem();
 	}

@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
-import { SLOptionsPage } from '../pages/shopping-list/sl-options/sl-options';
+import { DatabaseOptionsPage } from '../pages/database-options/database-options';
 import { RecipesPage } from '../pages/recipes/recipes';
 import { RecipePage } from '../pages/recipe/recipe';
 import { RecipeEdit } from '../pages/recipe-edit/recipe-edit';
@@ -23,7 +23,7 @@ import { AuthService } from '../service/auth';
   declarations: [
     MyApp,
     ShoppingListPage,
-    SLOptionsPage,
+    DatabaseOptionsPage,
     RecipesPage,
     TabsPage,
     RecipePage,
@@ -40,7 +40,7 @@ import { AuthService } from '../service/auth';
   entryComponents: [
     MyApp,
     ShoppingListPage,
-    SLOptionsPage,
+    DatabaseOptionsPage,
     RecipesPage,
     TabsPage,
     RecipePage,
